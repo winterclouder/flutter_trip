@@ -5,10 +5,16 @@ class CommonModel {
   final String statusBarColor;
   final bool hideAppBar;
 
-  CommonModel({this.icon, this.title, this.url, this.statusBarColor, this.hideAppBar)};
+  CommonModel({this.icon, this.title, this.url, this.statusBarColor, this.hideAppBar});
 
-  factory ConfigModel.formJson(Map<String, dynamic> json) {
-      return ConfigModel(searchUrl: json['searchUrl']);
+  factory CommonModel.formJson(Map<String, dynamic> json) {
+      return CommonModel(
+        icon: json['icon'],
+        title: json['title'],
+        url: json['url'],
+        statusBarColor: json['statusBarColor'],
+        hideAppBar: json['hideAppBar']
+    );
     
   }
 }
