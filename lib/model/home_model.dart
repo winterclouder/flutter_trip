@@ -8,26 +8,28 @@ class HomeModel {
   final List<CommonModel> bannerList;
   final List<CommonModel> localNavList;
   final GridNavModel gridNav;
-  final SaleBoxModel salebox;
+  final SaleBoxModel salesBox;
 
   HomeModel(
-      {this.config,
-      this.bannerList,
-      this.localNavList,
-      this.gridNav,
-      this.salebox});
+      {
+        this.config,
+        this.bannerList,
+        this.localNavList,
+        this.gridNav,
+        this.salesBox
+      });
 
   factory HomeModel.formJson(Map<String, dynamic> json) {
     var bannerListJson = json['bannerList'] as List;
     List<CommonModel> bannerList = bannerListJson.map((e) => CommonModel.formJson(e)).toList();
-    var localNavListJson = json['bannerList'] as List;
+    var localNavListJson = json['localNavList'] as List;
     List<CommonModel> localNavList = localNavListJson.map((e) => CommonModel.formJson(e)).toList();
     return HomeModel(
       config: ConfigModel.formJson(json['config']),
       bannerList: bannerList,
       localNavList: localNavList,
       gridNav: GridNavModel.formJson(json['gridNav']),
-      salebox: SaleBoxModel.formJson(json['salebox'])
+      salesBox: SaleBoxModel.formJson(json['salesBox'])
     );
   }
 

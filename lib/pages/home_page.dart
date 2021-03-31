@@ -1,7 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_trip/dao/home_dao.dart';
+import 'package:flutter_trip/model/home_model.dart';
+import 'dart:async';
+import 'dart:convert';
+
 const APPBAR_SCROLL_OFFSET = 100;
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -15,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   ];
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
-    if (alpha  < 0 ) {
+    if (alpha < 0) {
       alpha = 0;
     } else if (alpha > 1) {
       alpha = 1;
@@ -24,56 +29,74 @@ class _HomePageState extends State<HomePage> {
       appbarAlpha = alpha;
     });
   }
+
   double appbarAlpha = 0;
 
+  String resultString = '';
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    // try {
+      HomeModel model = await HomeDao.fetch();
+      setState(() {
+        resultString = json.encode(model);
+      });
+    // } catch (e) {
+    //   resultString =  e.toString();
+    //   print(e.toString());
+    //   print('e.toString()');
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-              children: [MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
-          child: NotificationListener(
+        children: [
+          MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: NotificationListener(
               onNotification: (s) {
                 if (s is ScrollUpdateNotification && s.depth == 0) {
                   _onScroll(s.metrics.pixels);
                 }
               },
-                    child: ListView(children: [
-              Container(
-                height: 160,
-                child: Swiper(
-                  itemCount: _imageUrls.length,
-                  autoplay: true,
-                  pagination: SwiperPagination(),
-                  itemBuilder: (context, index) =>
-                      Image.network(_imageUrls[index], fit: BoxFit.fill),
+              child: ListView(children: [
+                Container(
+                  height: 160,
+                  child: Swiper(
+                    itemCount: _imageUrls.length,
+                    autoplay: true,
+                    pagination: SwiperPagination(),
+                    itemBuilder: (context, index) =>
+                        Image.network(_imageUrls[index], fit: BoxFit.fill),
+                  ),
                 ),
-              ),
-              Container(
-                height: 800,
-                child: ListTile(
-                  title: Text("哈哈"),
+                Container(
+                  height: 800,
+                  child: ListTile(
+                    title: Text(resultString),
+                  ),
                 ),
+              ]),
+            ),
+          ),
+          Opacity(
+            opacity: appbarAlpha,
+            child: Container(
+              height: 80,
+              decoration: BoxDecoration(color: Colors.white),
+              child: Center(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 20), child: Text('首頁')),
               ),
-            ]),
-          ),
-        ),
-        Opacity(opacity: appbarAlpha,
-          child: Container(
-            height: 80,
-            decoration: BoxDecoration(color: Colors.white),
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 20),
-                child:Text('首頁')
-              )
-
-              ,),
-          ),
-         )
-
+            ),
+          )
         ],
       ),
     );

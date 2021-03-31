@@ -14,6 +14,14 @@ class GridNavModel {
       travel: GridNavItem.formJson(json['travel']),
     );
   }
+
+    Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+      data['hotel'] = this.hotel;
+      data['flight']= this.flight;
+      data['travel']= this.travel;
+      return data;
+  }
 }
 
 class GridNavItem {
@@ -42,7 +50,20 @@ class GridNavItem {
       item2: CommonModel.formJson(json['item2']),
       item3: CommonModel.formJson(json['item3']),
       item4: CommonModel.formJson(json['item4']),
-      
+
     );
   }
+
+        Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+      data['startColor'] = this.startColor;
+      data['endColor']= this.endColor;
+      data['mainItem']= this.mainItem;
+      data['item1']= this.item1;
+      data['item2']= this.item2;
+      data['item3']= this.item3;
+      data['item4']= this.item4;
+      return data;
+      }
+
 }
