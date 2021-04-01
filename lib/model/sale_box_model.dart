@@ -30,20 +30,19 @@ class SaleBoxModel {
       smallCard2: CommonModel.formJson(json['smallCard2']),
       smallCard3: CommonModel.formJson(json['smallCard3']),
       smallCard4: CommonModel.formJson(json['smallCard4']),
-
     );
   }
 
-      Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-      data['icon'] = this.icon;
-      data['moreUrl']= this.moreUrl;
-      data['bigCard1']= this.bigCard1;
-      data['bigCard2']= this.bigCard2;
-      data['smallCard1']= this.smallCard1;
-      data['smallCard2']= this.smallCard2;
-      data['smallCard3']= this.smallCard3;
-      data['smallCard4']= this.smallCard4;
-      return data;
-      }
+    data['icon'] = this.icon;
+    data['moreUrl'] = this.moreUrl;
+    data['bigCard1'] = this.bigCard1;
+    data['bigCard2'] = this.bigCard2;
+    data['smallCard1'] = this.smallCard1;
+    data['smallCard2'] = this.smallCard2;
+    data['smallCard3'] = this.smallCard3;
+    data['smallCard4'] = this.smallCard4;
+    return data;
+  }
 }

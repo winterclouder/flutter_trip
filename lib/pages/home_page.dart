@@ -40,16 +40,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
-    // try {
+    try {
       HomeModel model = await HomeDao.fetch();
       setState(() {
         resultString = json.encode(model);
       });
-    // } catch (e) {
-    //   resultString =  e.toString();
-    //   print(e.toString());
-    //   print('e.toString()');
-    // }
+    } catch (e) {
+      resultString =  e.toString();
+      print(e.toString());
+      print('e.toString()');
+    }
   }
 
   @override
@@ -65,13 +65,14 @@ class _HomePageState extends State<HomePage> {
                 if (s is ScrollUpdateNotification && s.depth == 0) {
                   _onScroll(s.metrics.pixels);
                 }
+                return true;
               },
               child: ListView(children: [
                 Container(
                   height: 160,
                   child: Swiper(
                     itemCount: _imageUrls.length,
-                    autoplay: true,
+                    autoplay: false,
                     pagination: SwiperPagination(),
                     itemBuilder: (context, index) =>
                         Image.network(_imageUrls[index], fit: BoxFit.fill),
